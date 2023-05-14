@@ -470,10 +470,6 @@ jQuery.each( "Boolean Number String Function Array Date RegExp Object Error Symb
 
 function isArrayLike( obj ) {
 
-	// Support: real iOS 8.2 only (not reproducible in simulator)
-	// `in` check used to prevent JIT error (gh-2145)
-	// hasOwn isn't used here due to false negatives
-	// regarding Nodelist length in IE
 	var length = !!obj && "length" in obj && obj.length,
 		type = toType( obj );
 
@@ -485,16 +481,7 @@ function isArrayLike( obj ) {
 		typeof length === "number" && length > 0 && ( length - 1 ) in obj;
 }
 var Sizzle =
-/*!
- * Sizzle CSS Selector Engine v2.3.10
- * https://sizzlejs.com/
- *
- * Copyright JS Foundation and other contributors
- * Released under the MIT license
- * https://js.foundation/
- *
- * Date: 2023-02-14
- */
+
 ( function( window ) {
 var i,
 	support,
@@ -542,8 +529,7 @@ var i,
 	push = arr.push,
 	slice = arr.slice,
 
-	// Use a stripped-down indexOf as it's faster than native
-	// https://jsperf.com/thor-indexof-vs-for/5
+	
 	indexOf = function( list, elem ) {
 		var i = 0,
 			len = list.length;
@@ -558,30 +544,26 @@ var i,
 	booleans = "checked|selected|async|autofocus|autoplay|controls|defer|disabled|hidden|" +
 		"ismap|loop|multiple|open|readonly|required|scoped",
 
-	// Regular expressions
-
-	// http://www.w3.org/TR/css3-selectors/#whitespace
+	
 	whitespace = "[\\x20\\t\\r\\n\\f]",
 
-	// https://www.w3.org/TR/css-syntax-3/#ident-token-diagram
+
 	identifier = "(?:\\\\[\\da-fA-F]{1,6}" + whitespace +
 		"?|\\\\[^\\r\\n\\f]|[\\w-]|[^\0-\\x7f])+",
 
-	// Attribute selectors: http://www.w3.org/TR/selectors/#attribute-selectors
+
 	attributes = "\\[" + whitespace + "*(" + identifier + ")(?:" + whitespace +
 
 		// Operator (capture 2)
 		"*([*^$|!~]?=)" + whitespace +
 
-		// "Attribute values must be CSS identifiers [capture 5]
-		// or strings [capture 3 or capture 4]"
+	
 		"*(?:'((?:\\\\.|[^\\\\'])*)'|\"((?:\\\\.|[^\\\\\"])*)\"|(" + identifier + "))|)" +
 		whitespace + "*\\]",
 
 	pseudos = ":(" + identifier + ")(?:\\((" +
 
-		// To reduce the number of selectors needing tokenize in the preFilter, prefer arguments:
-		// 1. quoted (capture 3; capture 4 or capture 5)
+		
 		"('((?:\\\\.|[^\\\\'])*)'|\"((?:\\\\.|[^\\\\\"])*)\")|" +
 
 		// 2. simple (capture 6)
@@ -633,8 +615,7 @@ var i,
 
 	rsibling = /[+~]/,
 
-	// CSS escapes
-	// http://www.w3.org/TR/CSS21/syndata.html#escaped-characters
+	
 	runescape = new RegExp( "\\\\[\\da-fA-F]{1,6}" + whitespace + "?|\\\\([^\\r\\n\\f])", "g" ),
 	funescape = function( escape, nonHex ) {
 		var high = "0x" + escape.slice( 1 ) - 0x10000;
@@ -644,17 +625,12 @@ var i,
 			// Strip the backslash prefix from a non-hex escape sequence
 			nonHex :
 
-			// Replace a hexadecimal escape sequence with the encoded Unicode code point
-			// Support: IE <=11+
-			// For values outside the Basic Multilingual Plane (BMP), manually construct a
-			// surrogate pair
+			
 			high < 0 ?
 				String.fromCharCode( high + 0x10000 ) :
 				String.fromCharCode( high >> 10 | 0xD800, high & 0x3FF | 0xDC00 );
 	},
 
-	// CSS string/identifier serialization
-	// https://drafts.csswg.org/cssom/#common-serializing-idioms
 	rcssescape = /([\0-\x1f\x7f]|^-?\d)|^-$|[^\0-\x1f\x7f-\uFFFF\w-]/g,
 	fcssescape = function( ch, asCodePoint ) {
 		if ( asCodePoint ) {
@@ -673,10 +649,7 @@ var i,
 		return "\\" + ch;
 	},
 
-	// Used for iframes
-	// See setDocument()
-	// Removing the function wrapper causes a "Permission Denied"
-	// error in IE
+	
 	unloadHandler = function() {
 		setDocument();
 	},
@@ -754,9 +727,6 @@ function Sizzle( selector, context, results, seed ) {
 					if ( nodeType === 9 ) {
 						if ( ( elem = context.getElementById( m ) ) ) {
 
-							// Support: IE, Opera, Webkit
-							// TODO: identify versions
-							// getElementById can match elements by name instead of ID
 							if ( elem.id === m ) {
 								results.push( elem );
 								return results;
@@ -768,9 +738,7 @@ function Sizzle( selector, context, results, seed ) {
 					// Element context
 					} else {
 
-						// Support: IE, Opera, Webkit
-						// TODO: identify versions
-						// getElementById can match elements by name instead of ID
+						
 						if ( newContext && ( elem = newContext.getElementById( m ) ) &&
 							contains( context, elem ) &&
 							elem.id === m ) {
@@ -806,13 +774,7 @@ function Sizzle( selector, context, results, seed ) {
 				newSelector = selector;
 				newContext = context;
 
-				// qSA considers elements outside a scoping root when evaluating child or
-				// descendant combinators, which is not what we want.
-				// In such cases, we work around the behavior by prefixing every selector in the
-				// list with an ID selector referencing the scope context.
-				// The technique has to be used as well when a leading combinator is used
-				// as such selectors are not recognized by querySelectorAll.
-				// Thanks to Andrew Dupont for this technique.
+		
 				if ( nodeType === 1 &&
 					( rdescend.test( selector ) || rleadingCombinator.test( selector ) ) ) {
 
@@ -989,18 +951,10 @@ function createDisabledPseudo( disabled ) {
 	// Known :disabled false positives: fieldset[disabled] > legend:nth-of-type(n+2) :can-disable
 	return function( elem ) {
 
-		// Only certain elements can match :enabled or :disabled
-		// https://html.spec.whatwg.org/multipage/scripting.html#selector-enabled
-		// https://html.spec.whatwg.org/multipage/scripting.html#selector-disabled
+
 		if ( "form" in elem ) {
 
-			// Check for inherited disabledness on relevant non-disabled elements:
-			// * listed form-associated elements in a disabled fieldset
-			//   https://html.spec.whatwg.org/multipage/forms.html#category-listed
-			//   https://html.spec.whatwg.org/multipage/forms.html#concept-fe-disabled
-			// * option elements in a disabled optgroup
-			//   https://html.spec.whatwg.org/multipage/forms.html#concept-option-disabled
-			// All such elements have a "form" property.
+			
 			if ( elem.parentNode && elem.disabled === false ) {
 
 				// Option elements defer to a parent optgroup if present
@@ -1024,9 +978,7 @@ function createDisabledPseudo( disabled ) {
 
 			return elem.disabled === disabled;
 
-		// Try to winnow out elements that can't be disabled before trusting the disabled property.
-		// Some victims get caught in our net (label, legend, menu, track), but it shouldn't
-		// even exist on them, let alone have a boolean value.
+		
 		} else if ( "label" in elem ) {
 			return elem.disabled === disabled;
 		}
@@ -1127,26 +1079,14 @@ setDocument = Sizzle.setDocument = function( node ) {
 		}
 	}
 
-	// Support: IE 8 - 11+, Edge 12 - 18+, Chrome <=16 - 25 only, Firefox <=3.6 - 31 only,
-	// Safari 4 - 5 only, Opera <=11.6 - 12.x only
-	// IE/Edge & older browsers don't support the :scope pseudo-class.
-	// Support: Safari 6.0 only
-	// Safari 6.0 supports :scope but it's an alias of :root there.
+
 	support.scope = assert( function( el ) {
 		docElem.appendChild( el ).appendChild( document.createElement( "div" ) );
 		return typeof el.querySelectorAll !== "undefined" &&
 			!el.querySelectorAll( ":scope fieldset div" ).length;
 	} );
 
-	// Support: Chrome 105 - 110+, Safari 15.4 - 16.3+
-	// Make sure the the `:has()` argument is parsed unforgivingly.
-	// We include `*` in the test to detect buggy implementations that are
-	// _selectively_ forgiving (specifically when the list includes at least
-	// one valid selector).
-	// Note that we treat complete lack of support for `:has()` as if it were
-	// spec-compliant support, which is fine because use of `:has()` in such
-	// environments will fail in the qSA path and fall back to jQuery traversal
-	// anyway.
+	
 	support.cssHas = assert( function() {
 		try {
 			document.querySelector( ":has(*,:jqfake)" );
@@ -1156,21 +1096,13 @@ setDocument = Sizzle.setDocument = function( node ) {
 		}
 	} );
 
-	/* Attributes
-	---------------------------------------------------------------------- */
-
-	// Support: IE<8
-	// Verify that getAttribute really returns attributes and not properties
-	// (excepting IE8 booleans)
+	
 	support.attributes = assert( function( el ) {
 		el.className = "i";
 		return !el.getAttribute( "className" );
 	} );
 
-	/* getElement(s)By*
-	---------------------------------------------------------------------- */
-
-	// Check if getElementsByTagName("*") returns only elements
+	
 	support.getElementsByTagName = assert( function( el ) {
 		el.appendChild( document.createComment( "" ) );
 		return !el.getElementsByTagName( "*" ).length;
@@ -1179,10 +1111,7 @@ setDocument = Sizzle.setDocument = function( node ) {
 	// Support: IE<9
 	support.getElementsByClassName = rnative.test( document.getElementsByClassName );
 
-	// Support: IE<10
-	// Check if getElementById returns elements by name
-	// The broken getElementById methods don't pick up programmatically-set names,
-	// so use a roundabout getElementsByName test
+	
 	support.getById = assert( function( el ) {
 		docElem.appendChild( el ).id = expando;
 		return !document.getElementsByName || !document.getElementsByName( expando ).length;
