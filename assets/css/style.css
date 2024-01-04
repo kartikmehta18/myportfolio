@@ -1,23 +1,5 @@
 
-/* 
-    -- Table of Content --
 
-    * # Preloader
-    * # Margin
-    * # InfoBox
-    * # Breadcrumb
-    * # Header
-    * # About
-    * # Project
-    * # Project Details
-    * # Credentials
-    * # Service
-    * # Blog
-    * # Contact
-    * # Footer
-    * Responsive
-
-*/
 :root {
     --primary_color: #5B78F6;
     --dark: #323232;
@@ -409,7 +391,7 @@ ol {
 
 .header-area .logo {
     display: inline-block;
-    z-index: 16;
+    z-index: 1;
 }
 .header-area .logo img {
     display: block;

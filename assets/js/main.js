@@ -5,9 +5,7 @@
             $(this).toggleClass('active');
             $(".header-area .navbar").toggleClass('active');
         });
-        // $(document).on('click', '.header-area .navbar .close-menu', function() {
-        //     $(".header-area .navbar").removeClass('active');
-        // });
+      
 
         AOS.init({
             duration: 1500,
